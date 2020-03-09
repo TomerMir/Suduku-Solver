@@ -162,12 +162,7 @@ namespace SudukuSolver
         }
 
         public bool CanSolve(int[][] results, int groupIndex, int cellIndex)
-        {
-            if (SeeSolution.Checked)
-            {
-                Application.DoEvents();
-                Thread.Sleep(1);
-            }
+        { 
 
             int[] possible = GetPossibleNumbers(groupIndex, cellIndex);
             int[] nextIndex = GetNextNoMasterIndex(groupIndex, cellIndex);
@@ -178,18 +173,31 @@ namespace SudukuSolver
             }
             if ((groupIndex == 8 && cellIndex == 8) || nextIndex[0] == -1)
             {
-                Board.GetCellByIndexes(groupIndex, cellIndex).Text = possible[0].ToString();
+                Board.GetCellByIndexes(groupIndex, cellIndex).SetValue(possible[0]);
                 results[groupIndex][cellIndex] = possible[0];
+                Board.AppendFromArray(results);
                 return true;
             }
             else
             {
                 foreach (int choice in possible)
                 {
-                    Board.GetCellByIndexes(groupIndex, cellIndex).Text = choice.ToString();
+                    Board.GetCellByIndexes(groupIndex, cellIndex).SetValue(choice);
+                    if (SeeSolution.Checked)
+                    {
+                        Board.GetCellByIndexes(groupIndex, cellIndex).Text = choice.ToString();
+                        Application.DoEvents();
+                        Thread.Sleep(1);
+                    }
                     results[groupIndex][cellIndex] = choice;
                     if (CanSolve(results, nextIndex[0], nextIndex[1])) return true;
-                    Board.GetCellByIndexes(groupIndex, cellIndex).Text = "";
+                    Board.GetCellByIndexes(groupIndex, cellIndex).SetValue(0);
+                    if (SeeSolution.Checked)
+                    {
+                        Board.GetCellByIndexes(groupIndex, cellIndex).Text = "";
+                        Application.DoEvents();
+                        Thread.Sleep(1);
+                    }
                     results[groupIndex][cellIndex] = 0;
                 }
                 return false;

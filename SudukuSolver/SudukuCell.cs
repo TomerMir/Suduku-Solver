@@ -14,25 +14,44 @@ namespace SudukuSolver
         public int colume { get; }
 
         public bool isMaster;
+
+        private int value;
         public SudukuCell(int colume, int row)
         {
             this.row = row;
             this.colume = colume;
             isMaster = false;
         }
+
+        public void SetValue(int n)
+        {
+            this.value = n;
+        }
         
-        public int GetValue()
+        public int SetValueFromText()
         {
             try
             {
-                if (this.Text == "") return 0;
-                if (int.Parse(this.Text) == 0) return -1;
-                return int.Parse(this.Text);
+                if (this.Text == "")
+                {
+                    return 0;
+                }
+                int text = int.Parse(this.Text);
+                if (text == 0)
+                {
+                    return -1;
+                }
+                return text;
             }
             catch (Exception)
             {
                 return -1;
             }
+        }
+
+        public int GetValue()
+        {
+            return this.value;
         }
     }
     class SudukuCellGroup : System.Windows.Forms.TableLayoutPanel
@@ -71,8 +90,8 @@ namespace SudukuSolver
                     tmpCell.AutoSize = false;
                     tmpCell.Size = new System.Drawing.Size(width / 3, height / 3);
                     tmpCell.Click += new EventHandler((s, e) => tmpCell.BackColor = Color.White);
-
-                    //tmpCell.Text = row.ToString() + colume.ToString() + tmpCell.row.ToString() + tmpCell.colume.ToString();
+                    tmpCell.TextChanged += new EventHandler((s, e) => tmpCell.SetValue(tmpCell.SetValueFromText()));
+                    
                     this.Controls.Add(tmpCell, i, k);
                 }
             }

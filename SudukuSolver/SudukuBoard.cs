@@ -64,6 +64,7 @@ namespace SudukuSolver
                 cell.Enabled = true;
                 cell.Text = "";
                 cell.isMaster = false;
+                cell.SetValue(0);
             }
         }
 
@@ -154,6 +155,17 @@ namespace SudukuSolver
         public SudukuCell GetCellByIndexes(int groupIndex, int cellIndex)
         {
             return this.GetGroupByIndex(groupIndex).GetCellByIndex(cellIndex);
+        }
+
+        public void AppendFromArray(int[][] arr)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                for (int k = 0; k < arr[i].Length; k++)
+                {
+                    this.GetCellByIndexes(i, k).Text = arr[i][k].ToString();
+                }
+            }
         }
     }
 }
