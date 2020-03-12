@@ -14,6 +14,7 @@ namespace SudukuSolver
     public partial class Suduku_Form : Form
     {
         private SudukuBoard Board = new SudukuBoard();
+        private System.Diagnostics.Stopwatch stopWatch;
 
         /// <summary>
         /// פעולה בונה שבונה את החלון
@@ -302,11 +303,15 @@ namespace SudukuSolver
             }
             try
             {
+                this.stopWatch = System.Diagnostics.Stopwatch.StartNew();
                 SetSurePlaces(startPlace[0], startPlace[1]);
                 if (!CanSolve(arr, startPlace[0], startPlace[1]))
                 {
+                    stopWatch.Stop();
                     MessageBox.Show("Can't Solve", ":(");
                 }
+                stopWatch.Stop();
+                MessageBox.Show("It took " + (float)stopWatch.ElapsedMilliseconds / 1000 + " seconds to solve this suduku", ":)");
             }
             catch (Exception)
             {
