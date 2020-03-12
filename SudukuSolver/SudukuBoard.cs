@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace SudukuSolver
 {
+    /// <summary>
+    /// TableLayoutPanel לוח הסודוקו, יורש מהמחלקה 
+    /// </summary>
     class SudukuBoard : System.Windows.Forms.TableLayoutPanel
     {
         private int width = 500; //הרוחב של הלוח מבחינה גרפית
