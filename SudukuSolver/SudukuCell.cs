@@ -8,14 +8,31 @@ using System.Windows.Forms;
 
 namespace SudukuSolver
 {
+    /// <summary>
+    /// תא יחיד בלוח הסודוקו, יורש מהמחלקה של תיבת טקסט
+    /// </summary>
     class SudukuCell : System.Windows.Forms.TextBox
     {
+        /// <summary>
+        /// הטור שבו התא נמצא
+        /// </summary>
         public int row { get; }
+
+        /// <summary>
+        /// השורה שבו התא נמצא
+        /// </summary>
         public int colume { get; }
 
+        /// <summary>
+        /// משתנה בוליאני שמסמן אם התא הוא תא שאין לשנות אותו
+        /// </summary>
         public bool isMaster;
 
+        /// <summary>
+        /// הערך שבתוך התא
+        /// </summary>
         private int value;
+
         public SudukuCell(int colume, int row)
         {
             this.row = row;
@@ -27,8 +44,12 @@ namespace SudukuSolver
         {
             this.value = n;
         }
-        
-        public int SetValueFromText()
+
+        /// <summary>
+        /// מחזיר את הערך של התא לפי הטקסט שהוא מכיל
+        /// </summary>
+        /// <returns></returns>
+        public int GetValueFromText()
         {
             try
             {
@@ -54,10 +75,21 @@ namespace SudukuSolver
             return this.value;
         }
     }
+    /// <summary>
+    /// TableLayoutPanel קבוצת תאים בלוח הסודוקו, יורש מהמחלקה 
+    /// </summary>
     class SudukuCellGroup : System.Windows.Forms.TableLayoutPanel
     {
-        public int row { get; }
-        public int colume { get; }
+        public int row { get; } //הטור שבה הקבוצה נמצאת
+        public int colume { get; } //השורה שבה הקבוצה נמצאת
+
+        /// <summary>
+        /// פעולה בונה שמייצרת את הקבוצה מבחינה גרפית
+        /// </summary>
+        /// <param name="colume"></param>
+        /// <param name="row"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         public SudukuCellGroup(int colume, int row, int width, int height)
         {
             this.row = row;
@@ -90,13 +122,17 @@ namespace SudukuSolver
                     tmpCell.AutoSize = false;
                     tmpCell.Size = new System.Drawing.Size(width / 3, height / 3);
                     tmpCell.Click += new EventHandler((s, e) => tmpCell.BackColor = Color.White);
-                    tmpCell.TextChanged += new EventHandler((s, e) => tmpCell.SetValue(tmpCell.SetValueFromText()));
+                    tmpCell.TextChanged += new EventHandler((s, e) => tmpCell.SetValue(tmpCell.GetValueFromText()));
                     
                     this.Controls.Add(tmpCell, i, k);
                 }
             }
         }
 
+        /// <summary>
+        /// מחזיר מערך של ערכי התאים שהקבוצה מכילה
+        /// </summary>
+        /// <returns></returns>
         public int[] GetValues()
         {
             int[] tmp = new int[9];
@@ -107,12 +143,22 @@ namespace SudukuSolver
             }
             return tmp;
         }
-        
+
+        /// <summary>
+        /// מחזיר ערך של תא בקבוצה לפי אינדקס
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public SudukuCell GetCellByIndex(int index)
         {
             return (SudukuCell)this.Controls[index];
         }
 
+        /// <summary>
+        /// מחזיר מערך של כל התאים שנמצאים בשורה מסויימת
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
         public SudukuCell[] GetAllCellsByRow(int row)
         {
             List<SudukuCell> list = new List<SudukuCell>();
@@ -122,7 +168,12 @@ namespace SudukuSolver
             }
             return list.ToArray();
         }
-         
+
+        /// <summary>
+        /// מחזיר מערך של כל התאים שנמצאים בטור מסויים
+        /// </summary>
+        /// <param name="colume"></param>
+        /// <returns></returns>
         public SudukuCell[] GetAllCellsByColume(int colume)
         {
             List<SudukuCell> list = new List<SudukuCell>();
@@ -133,6 +184,11 @@ namespace SudukuSolver
             return list.ToArray();
         }
 
+        /// <summary>
+        /// מחזיר מערך של כל הערכים ממערך של תאים
+        /// </summary>
+        /// <param name="cellsArr"></param>
+        /// <returns></returns>
         public static int[] GetValuesByCellsArray(SudukuCell[] cellsArr)
         {
             List<int> list = new List<int>();
@@ -146,8 +202,13 @@ namespace SudukuSolver
             return list.ToArray();
         }
 
+        /// <summary>
+        /// מקבל מערך של מספרים ומחזיר מערך של כל המספרים ממערך זה שגדולים מ0
+        /// </summary>
+        /// <param name="arr">מערך של ערכים</param>
+        /// <returns></returns>
         public static int[] CorrectNumberArray(int[] arr)
-        {
+        {        
             List<int> list = new List<int>();
             for (int i = 0; i < arr.Length; i++)
             {

@@ -18,3 +18,13 @@ C:\Users\mtome\Desktop\Suduku_Solver\SudukuSolver\Suduku-Solver\SudukuSolver\obj
 C:\Users\mtome\Desktop\Suduku_Solver\SudukuSolver\Suduku-Solver\SudukuSolver\obj\Debug\SudukuSolver.csproj.CoreCompileInputs.cache
 C:\Users\mtome\Desktop\Suduku_Solver\SudukuSolver\Suduku-Solver\SudukuSolver\obj\Debug\SudukuSolver.exe
 C:\Users\mtome\Desktop\Suduku_Solver\SudukuSolver\Suduku-Solver\SudukuSolver\obj\Debug\SudukuSolver.pdb
+\\Filesrv\user-profile$\lab1\Documents\AAA נועם ועידן\Suduku-Solver-master\SudukuSolver\bin\Debug\SudukuSolver.exe.config
+\\Filesrv\user-profile$\lab1\Documents\AAA נועם ועידן\Suduku-Solver-master\SudukuSolver\bin\Debug\SudukuSolver.exe
+\\Filesrv\user-profile$\lab1\Documents\AAA נועם ועידן\Suduku-Solver-master\SudukuSolver\bin\Debug\SudukuSolver.pdb
+\\Filesrv\user-profile$\lab1\Documents\AAA נועם ועידן\Suduku-Solver-master\SudukuSolver\obj\Debug\SudukuSolver.csprojAssemblyReference.cache
+\\Filesrv\user-profile$\lab1\Documents\AAA נועם ועידן\Suduku-Solver-master\SudukuSolver\obj\Debug\SudukuSolver.Suduku_Form.resources
+\\Filesrv\user-profile$\lab1\Documents\AAA נועם ועידן\Suduku-Solver-master\SudukuSolver\obj\Debug\SudukuSolver.Properties.Resources.resources
+\\Filesrv\user-profile$\lab1\Documents\AAA נועם ועידן\Suduku-Solver-master\SudukuSolver\obj\Debug\SudukuSolver.csproj.GenerateResource.cache
+\\Filesrv\user-profile$\lab1\Documents\AAA נועם ועידן\Suduku-Solver-master\SudukuSolver\obj\Debug\SudukuSolver.csproj.CoreCompileInputs.cache
+\\Filesrv\user-profile$\lab1\Documents\AAA נועם ועידן\Suduku-Solver-master\SudukuSolver\obj\Debug\SudukuSolver.exe
+\\Filesrv\user-profile$\lab1\Documents\AAA נועם ועידן\Suduku-Solver-master\SudukuSolver\obj\Debug\SudukuSolver.pdb

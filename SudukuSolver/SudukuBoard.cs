@@ -10,9 +10,12 @@ namespace SudukuSolver
 {
     class SudukuBoard : System.Windows.Forms.TableLayoutPanel
     {
-        private int width = 500;
-        private int height = 500;
+        private int width = 500; //הרוחב של הלוח מבחינה גרפית
+        private int height = 500; //הגובה של הלוח מבחינה גרפית
 
+        /// <summary>
+        /// מייצר את הלוח
+        /// </summary>
         public SudukuBoard()
         {
             this.ColumnCount = 3;
@@ -40,6 +43,10 @@ namespace SudukuSolver
                 }
             }
         }
+        /// <summary>
+        /// פונקציה שמחזירה מערך דו מממדי של כל ערכי הלוח
+        /// </summary>
+        /// <returns></returns>
         public int[][] GetValues()
         {
             int[][] tmp = new int[9][];
@@ -51,11 +58,19 @@ namespace SudukuSolver
             return tmp;
         }
 
+        /// <summary>
+        /// מחזיר קבוצה של תאים לפי אינדקס
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public SudukuCellGroup GetGroupByIndex(int index)
         {
             return (SudukuCellGroup)this.Controls[index];
         }
 
+        /// <summary>
+        /// מאפס את הלוח
+        /// </summary>
         public void Reset()
         {
             foreach (SudukuCell cell in this.GetAllCells())
@@ -66,16 +81,12 @@ namespace SudukuSolver
                 cell.isMaster = false;
                 cell.SetValue(0);
             }
-        }
+        }      
 
-        public void ResetColors()
-        {
-            foreach (SudukuCell cell in this.GetAllCells())
-            {
-                cell.BackColor = Color.White;
-            }
-        }
-
+        /// <summary>
+        /// מחזיר מערך של כל התאים בלוח
+        /// </summary>
+        /// <returns></returns>
         public SudukuCell[] GetAllCells()
         {
             SudukuCell[] arr = new SudukuCell[81];
@@ -91,6 +102,11 @@ namespace SudukuSolver
             return arr;
         }
 
+        /// <summary>
+        /// מחזיר מערך של כל הקבוצות לפי שורה מסויימת
+        /// </summary>
+        /// <param name="row"></param>
+        /// <returns></returns>
         public SudukuCellGroup[] GetAllGroupsByRow(int row)
         {
             List<SudukuCellGroup> list = new List<SudukuCellGroup>();
@@ -101,6 +117,11 @@ namespace SudukuSolver
             return list.ToArray();
         }
 
+        /// <summary>
+        /// מחזיר מערך של כל הקבוצות לפי טור מסויים
+        /// </summary>
+        /// <param name="colume"></param>
+        /// <returns></returns>
         public SudukuCellGroup[] GetAllGroupsByColume(int colume)
         {
             List<SudukuCellGroup> list = new List<SudukuCellGroup>();
@@ -111,6 +132,12 @@ namespace SudukuSolver
             return list.ToArray();
         }
 
+        /// <summary>
+        /// מחזיר מערך של כל התאים לפי שורה מסויימת
+        /// </summary>
+        /// <param name="groupRow"></param>
+        /// <param name="row"></param>
+        /// <returns></returns>
         public SudukuCell[] GetAllCellsFromRow(int groupRow, int row)
         {
             SudukuCell[] arr = new SudukuCell[9];
@@ -132,6 +159,12 @@ namespace SudukuSolver
             return arr;
         }
 
+        /// <summary>
+        /// מחזיר מערך של כל התאים לפי טור מסויים
+        /// </summary>
+        /// <param name="groupColume"></param>
+        /// <param name="colume"></param>
+        /// <returns></returns>
         public SudukuCell[] GetAllCellsFromColume(int groupColume, int colume)
         {
             SudukuCell[] arr = new SudukuCell[9];
@@ -152,11 +185,21 @@ namespace SudukuSolver
             return arr;
         }
 
+        /// <summary>
+        /// מחזיר תא לפי אינדקסים 
+        /// </summary>
+        /// <param name="groupIndex"></param>
+        /// <param name="cellIndex"></param>
+        /// <returns></returns>
         public SudukuCell GetCellByIndexes(int groupIndex, int cellIndex)
         {
             return this.GetGroupByIndex(groupIndex).GetCellByIndex(cellIndex);
         }
 
+        /// <summary>
+        /// משנה את הערכים של כל התאים בלוח לפי מערך של ערכים
+        /// </summary>
+        /// <param name="arr"></param>
         public void AppendFromArray(int[][] arr)
         {
             for (int i = 0; i < arr.Length; i++)

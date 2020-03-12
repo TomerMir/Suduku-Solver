@@ -14,12 +14,21 @@ namespace SudukuSolver
     public partial class Suduku_Form : Form
     {
         private SudukuBoard Board = new SudukuBoard();
+
+        /// <summary>
+        /// פעולה בונה שבונה את החלון
+        /// </summary>
         public Suduku_Form()
         {
             this.Controls.Add(Board);
             InitializeComponent();
         }
 
+        /// <summary>
+        /// מקבל את כל הערכים מהלוח ובודק אם הם נכונים ואפשריים
+        /// </summary>
+        /// <param name="arr"></param>
+        /// <returns></returns>
         public bool ValidateResaults(int[][] arr)
         {
             for (int i = 0; i < 9; i++)
@@ -55,6 +64,13 @@ namespace SudukuSolver
             return true;
         }
 
+        /// <summary>
+        /// מקבל אינדקסים של תא ומערך של הלוח ובודק אם הערך בתא אפשרי
+        /// </summary>
+        /// <param name="results"></param>
+        /// <param name="groupIndex"></param>
+        /// <param name="cellIndex"></param>
+        /// <returns></returns>
         public bool CheckIfPossible(int[][] results, int groupIndex, int cellIndex)
         {
             int cellNumber = results[groupIndex][cellIndex];
@@ -88,6 +104,13 @@ namespace SudukuSolver
             if (columeCounter > 1 || rowCounter > 1 || groupCounter > 1) return false;
             return true;
         }
+
+        /// <summary>
+        /// מקבל אינדקסים של תא ומחזיר את כל המספרים האפשריים שאפשר להכניס בתא זה
+        /// </summary>
+        /// <param name="groupIndex"></param>
+        /// <param name="cellIndex"></param>
+        /// <returns></returns>
         public int[] GetPossibleNumbers(int groupIndex, int cellIndex)
         {
             int[] columeNumbers = SudukuCellGroup.GetValuesByCellsArray(Board.GetAllCellsFromColume(Board.GetGroupByIndex(groupIndex).colume, Board.GetGroupByIndex(groupIndex).GetCellByIndex(cellIndex).colume));
@@ -120,7 +143,12 @@ namespace SudukuSolver
             return remainingNumbers.ToArray();
         }
 
-
+        /// <summary>
+        /// מקבל אינדקסים ומחזיר מערך של האינדקסים של התא הבא בלוח, אם זה התא האחרון יחזיר -1,-1
+        /// </summary>
+        /// <param name="groupIndex"></param>
+        /// <param name="cellIndex"></param>
+        /// <returns></returns>
         public int[] GetNextIndex(int groupIndex, int cellIndex)
         {
             if (groupIndex == 8 && cellIndex == 8)
@@ -140,6 +168,12 @@ namespace SudukuSolver
             return new int[2] { groupIndex, cellIndex };
         }
 
+        /// <summary>
+        /// מקבל אינדקסים ומחזיר מערך של האינדקסים של התא הבא בלוח שאפשרי לשנות אותו, אם זה התא האחרון יחזיר -1,-1
+        /// </summary>
+        /// <param name="groupIndex"></param>
+        /// <param name="cellIndex"></param>
+        /// <returns></returns>
         public int[] GetNextNoMasterIndex(int groupIndex, int cellIndex)
         {
             int[] nextIndex = GetNextIndex(groupIndex, cellIndex);
@@ -161,6 +195,13 @@ namespace SudukuSolver
             }
         }
 
+        /// <summary>
+        /// פונקציה רקורסיבית שפותרת את הסודוק
+        /// </summary>
+        /// <param name="results"></param>
+        /// <param name="groupIndex"></param>
+        /// <param name="cellIndex"></param>
+        /// <returns></returns>
         public bool CanSolve(int[][] results, int groupIndex, int cellIndex)
         { 
 
@@ -204,6 +245,13 @@ namespace SudukuSolver
             }
         }
 
+        /// <summary>
+        /// פונקציה שעוברת על כל תא בלוח ובודקת אם יש רק אפשרות אחת למספר שאפשר לשים בו,
+        /// אם כן הפונקציה תשנה את הערך של התא הזה לאפשרות היחידה
+        /// </summary>
+        /// <param name="groupIndex"></param>
+        /// <param name="cellIndex"></param>
+        /// <returns></returns>
         public bool SetSurePlaces(int groupIndex, int cellIndex)
         {
             int[] possible = GetPossibleNumbers(groupIndex, cellIndex);
@@ -229,7 +277,11 @@ namespace SudukuSolver
 
         }
 
-
+        /// <summary>
+        /// הפוקציה שפותרת את כל הסודוקו, נקראת בלחיצת כפתור Solve
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Solve_Click(object sender, EventArgs e)
         {
             int[][] arr = Board.GetValues();
@@ -264,6 +316,11 @@ namespace SudukuSolver
             Solve.Enabled = true;
         }
 
+        /// <summary>
+        /// פונקציה שמאפסת את לוח הסודוקו
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Reset_Click(object sender, EventArgs e)
         {
             Board.Reset();            
