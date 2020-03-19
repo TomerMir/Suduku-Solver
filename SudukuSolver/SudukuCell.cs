@@ -45,6 +45,20 @@ namespace SudukuSolver
             this.value = n;
         }
 
+        public void SetText(string text)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((MethodInvoker) delegate()
+                {
+                    this.Text = text;
+                });
+            }
+            else
+            {
+                this.Text = text;
+            }
+        }
         /// <summary>
         /// מחזיר את הערך של התא לפי הטקסט שהוא מכיל
         /// </summary>

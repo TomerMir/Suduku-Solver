@@ -209,7 +209,7 @@ namespace SudukuSolver
             {
                 for (int k = 0; k < arr[i].Length; k++)
                 {
-                    this.GetCellByIndexes(i, k).Text = arr[i][k].ToString();
+                    this.GetCellByIndexes(i, k).SetText(arr[i][k].ToString());
                 }
             }
         }

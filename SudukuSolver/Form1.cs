@@ -227,7 +227,7 @@ namespace SudukuSolver
                     Board.GetCellByIndexes(groupIndex, cellIndex).SetValue(choice);
                     if (SeeSolution.Checked)
                     {
-                        Board.GetCellByIndexes(groupIndex, cellIndex).Text = choice.ToString();
+                        Board.GetCellByIndexes(groupIndex, cellIndex).SetText(choice.ToString());
                         Application.DoEvents();
                         Thread.Sleep(1);
                     }
@@ -236,7 +236,7 @@ namespace SudukuSolver
                     Board.GetCellByIndexes(groupIndex, cellIndex).SetValue(0);
                     if (SeeSolution.Checked)
                     {
-                        Board.GetCellByIndexes(groupIndex, cellIndex).Text = "";
+                        Board.GetCellByIndexes(groupIndex, cellIndex).SetText("");
                         Application.DoEvents();
                         Thread.Sleep(1);
                     }
@@ -260,7 +260,7 @@ namespace SudukuSolver
 
             if (possible.Length == 1)
             {
-                Board.GetCellByIndexes(groupIndex, cellIndex).Text = possible[0].ToString();
+                Board.GetCellByIndexes(groupIndex, cellIndex).SetText(possible[0].ToString());
                 Board.GetCellByIndexes(groupIndex, cellIndex).isMaster = true;
             }
 
@@ -301,24 +301,34 @@ namespace SudukuSolver
             {
                 startPlace = GetNextNoMasterIndex(0, 0);
             }
-            try
+
+            BackgroundWorker solver = new BackgroundWorker();
+            solver.DoWork += (s, a) =>
             {
-                this.stopWatch = System.Diagnostics.Stopwatch.StartNew();
-                SetSurePlaces(startPlace[0], startPlace[1]);
-                if (!CanSolve(arr, startPlace[0], startPlace[1]))
+                try
                 {
+                    this.stopWatch = System.Diagnostics.Stopwatch.StartNew();
+                    SetSurePlaces(startPlace[0], startPlace[1]);
+                    startPlace = GetNextNoMasterIndex(0, 0);
+                    if (!CanSolve(arr, startPlace[0], startPlace[1]))
+                    {
+                        stopWatch.Stop();
+                        MessageBox.Show("Can't Solve", ":(");
+                    }
                     stopWatch.Stop();
+                    MessageBox.Show("It took " + (float)stopWatch.ElapsedMilliseconds / 1000 + " seconds to solve this suduku", ":)");
+                }
+                catch (Exception)
+                {
                     MessageBox.Show("Can't Solve", ":(");
                 }
-                stopWatch.Stop();
-                MessageBox.Show("It took " + (float)stopWatch.ElapsedMilliseconds / 1000 + " seconds to solve this suduku", ":)");
-            }
-            catch (Exception)
+            };
+            solver.RunWorkerCompleted += (s, a) =>
             {
-                MessageBox.Show("Can't Solve", ":(");
-            }
-            Reset.Enabled = true;
-            Solve.Enabled = true;
+                Reset.Enabled = true;
+                Solve.Enabled = true;
+            };
+            solver.RunWorkerAsync();
         }
 
         /// <summary>
